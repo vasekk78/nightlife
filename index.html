@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Video</title>
+    <title>Video s QR kódom</title>
 </head>
-<body style="margin: 0; overflow: hidden;">
-    <iframe 
-        src="https://www.youtube.com/embed/9NKMjPdkBnY?autoplay=1&fs=1&mute=1" 
-        width="100%" 
-        height="100%" 
-        frameborder="0" 
-        allow="autoplay; fullscreen" 
-        allowfullscreen>
+<body>
+    <h1>Spusti video</h1>
+
+    <!-- Iframe na video s autoplay a mute -->
+    <iframe width="100%" height="315" 
+            src="https://www.youtube.com/embed/9NKMjPdkBnY?autoplay=1&mute=1" 
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>
 </body>
 </html>
