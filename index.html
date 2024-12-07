@@ -3,28 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video s QR kódom</title>
+    <title>QR Video Player</title>
 </head>
 <body>
     <h1>Spustiť video vo fullscreen</h1>
 
-    <!-- Odkaz, ktorý aktivuje video cez JavaScript -->
-    <a href="#" onclick="playFullScreenVideo();">Spustiť video</a>
+    <div id="video-container"></div>
 
     <script>
-        function playFullScreenVideo() {
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('width', '100%');
-            iframe.setAttribute('height', '100%');
-            iframe.setAttribute('src', 'https://www.youtube.com/embed/9NKMjPdkBnY?autoplay=1&mute=0');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'autoplay; encrypted-media');
-            iframe.setAttribute('allowfullscreen', '');
+        // Funkcia na načítanie videa na základe URL parametra
+        function loadVideo() {
+            // Získať ID videa z URL parametra "videoId"
+            var urlParams = new URLSearchParams(window.location.search);
+            var videoId = urlParams.get('videoId');
+            
+            // Ak je videoId prítomné v URL, zobraziť príslušné video
+            if (videoId) {
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('width', '100%');
+                iframe.setAttribute('height', '100%');
+                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.setAttribute('allowfullscreen', '');
 
-            // Vytvorenie iframe na stránke a pokus o fullscreen
-            document.body.appendChild(iframe);
-            iframe.requestFullscreen(); // Pokúsi sa prepnúť do fullscreen režimu
+                // Vymazať predchádzajúci obsah a vložiť nové video
+                document.getElementById('video-container').innerHTML = '';
+                document.getElementById('video-container').appendChild(iframe);
+                iframe.requestFullscreen(); // Pokúsi sa o fullscreen režim
+            } else {
+                document.getElementById('video-container').innerHTML = '<p>Video nebolo nájdené!</p>';
+            }
         }
+
+        // Zavoláme funkciu na načítanie videa pri načítaní stránky
+        window.onload = loadVideo;
     </script>
 </body>
 </html>
