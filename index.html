@@ -8,16 +8,17 @@
 <body>
     <h1>Spustiť video vo fullscreen</h1>
 
+    <!-- Odkaz na spustenie videa -->
+    <a href="#" onclick="loadVideo();">Spustiť video</a>
+
     <div id="video-container"></div>
 
     <script>
         // Funkcia na načítanie videa na základe URL parametra
         function loadVideo() {
-            // Získať ID videa z URL parametra "videoId"
             var urlParams = new URLSearchParams(window.location.search);
             var videoId = urlParams.get('videoId');
             
-            // Ak je videoId prítomné v URL, zobraziť príslušné video
             if (videoId) {
                 var iframe = document.createElement('iframe');
                 iframe.setAttribute('width', '100%');
@@ -27,17 +28,17 @@
                 iframe.setAttribute('allow', 'autoplay; encrypted-media');
                 iframe.setAttribute('allowfullscreen', '');
 
-                // Vymazať predchádzajúci obsah a vložiť nové video
                 document.getElementById('video-container').innerHTML = '';
                 document.getElementById('video-container').appendChild(iframe);
-                iframe.requestFullscreen(); // Pokúsi sa o fullscreen režim
+
+                // Pokúsiť sa prepnúť do fullscreen režimu po kliknutí
+                iframe.requestFullscreen().catch(function (error) {
+                    console.log('Fullscreen nebolo možné zapnúť: ', error);
+                });
             } else {
                 document.getElementById('video-container').innerHTML = '<p>Video nebolo nájdené!</p>';
             }
         }
-
-        // Zavoláme funkciu na načítanie videa pri načítaní stránky
-        window.onload = loadVideo;
     </script>
 </body>
 </html>
